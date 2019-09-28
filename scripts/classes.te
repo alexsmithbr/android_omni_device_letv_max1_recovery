@@ -1,0 +1,663 @@
+class appletalk_socket
+inherits socket
+;
+class association
+{
+	recvfrom
+	polmatch
+	setcontext
+	sendto
+};
+class binder
+{
+	call
+	impersonate
+	transfer
+	set_context_mgr
+};
+class blk_file
+inherits file
+{
+	execmod
+	open
+	audit_access
+};
+class capability
+{
+	sys_tty_config
+	net_raw
+	setgid
+	ipc_lock
+	mknod
+	sys_rawio
+	fsetid
+	dac_read_search
+	setuid
+	lease
+	sys_module
+	chown
+	audit_write
+	sys_chroot
+	kill
+	sys_ptrace
+	setfcap
+	sys_admin
+	ipc_owner
+	sys_resource
+	linux_immutable
+	sys_nice
+	sys_boot
+	fowner
+	sys_pacct
+	sys_time
+	audit_control
+	net_admin
+	dac_override
+	net_bind_service
+	net_broadcast
+	setpcap
+};
+class capability2
+{
+	block_suspend
+	wake_alarm
+	syslog
+	mac_admin
+	mac_override
+};
+class chr_file
+inherits file
+{
+	open
+	execmod
+	execute_no_trans
+	audit_access
+	entrypoint
+};
+class context
+{
+	translate
+	contains
+};
+class db_blob
+inherits database
+{
+	import
+	read
+	export
+	write
+};
+class db_column
+inherits database
+{
+	select
+	use
+	update
+	insert
+};
+class db_database
+inherits database
+{
+	get_param
+	load_module
+	install_module
+	access
+	set_param
+};
+class db_language
+inherits database
+{
+	implement
+	execute
+};
+class db_procedure
+inherits database
+{
+	install
+	execute
+	entrypoint
+};
+class db_schema
+inherits database
+{
+	add_name
+	search
+	remove_name
+};
+class db_sequence
+inherits database
+{
+	next_value
+	set_value
+	get_value
+};
+class db_table
+inherits database
+{
+	select
+	delete
+	lock
+	insert
+	update
+	use
+};
+class db_tuple
+{
+	select
+	relabelto
+	insert
+	update
+	use
+	relabelfrom
+	delete
+};
+class db_view
+inherits database
+{
+	expand
+};
+class dbus
+{
+	send_msg
+	acquire_svc
+};
+class dccp_socket
+inherits socket
+{
+	name_connect
+	node_bind
+};
+class dir
+inherits file
+{
+	remove_name
+	search
+	rmdir
+	audit_access
+	add_name
+	execmod
+	open
+	reparent
+};
+class fd
+{
+	use
+};
+class fifo_file
+inherits file
+{
+	audit_access
+	open
+	execmod
+};
+class file
+inherits file
+{
+	entrypoint
+	open
+	execute_no_trans
+	execmod
+	audit_access
+};
+class filesystem
+{
+	relabelfrom
+	unmount
+	relabelto
+	associate
+	remount
+	quotamod
+	transition
+	quotaget
+	mount
+	getattr
+};
+class ipc
+inherits ipc
+;
+class kernel_service
+{
+	create_files_as
+	use_as_override
+};
+class key
+{
+	view
+	write
+	link
+	search
+	read
+	create
+	setattr
+};
+class key_socket
+inherits socket
+;
+class keystore_key
+{
+	verify
+	lock
+	saw
+	get
+	password
+	clear_uid
+	unlock
+	exist
+	grant
+	test
+	duplicate
+	reset_uid
+	sync_uid
+	sign
+	zero
+	reset
+	password_uid
+	delete
+	insert
+};
+class lnk_file
+inherits file
+{
+	open
+	execmod
+	audit_access
+};
+class memprotect
+{
+	mmap_zero
+};
+class msg
+{
+	receive
+	send
+};
+class msgq
+inherits ipc
+{
+	enqueue
+};
+class netif
+{
+	rawip_send
+	egress
+	tcp_send
+	ingress
+	dccp_send
+	udp_send
+	udp_recv
+	rawip_recv
+	tcp_recv
+	dccp_recv
+};
+class netlink_audit_socket
+inherits socket
+{
+	nlmsg_readpriv
+	nlmsg_relay
+	nlmsg_tty_audit
+	nlmsg_write
+	nlmsg_read
+};
+class netlink_dnrt_socket
+inherits socket
+;
+class netlink_firewall_socket
+inherits socket
+{
+	nlmsg_write
+	nlmsg_read
+};
+class netlink_ip6fw_socket
+inherits socket
+{
+	nlmsg_write
+	nlmsg_read
+};
+class netlink_kobject_uevent_socket
+inherits socket
+;
+class netlink_nflog_socket
+inherits socket
+;
+class netlink_route_socket
+inherits socket
+{
+	nlmsg_write
+	nlmsg_read
+};
+class netlink_selinux_socket
+inherits socket
+;
+class netlink_socket
+inherits socket
+;
+class netlink_tcpdiag_socket
+inherits socket
+{
+	nlmsg_write
+	nlmsg_read
+};
+class netlink_xfrm_socket
+inherits socket
+{
+	nlmsg_write
+	nlmsg_read
+};
+class node
+{
+	tcp_send
+	tcp_recv
+	udp_recv
+	dccp_send
+	udp_send
+	sendto
+	rawip_send
+	rawip_recv
+	recvfrom
+	enforce_dest
+	dccp_recv
+};
+class nscd
+{
+	shmemgrp
+	getgrp
+	shmemhost
+	getstat
+	shmemserv
+	gethost
+	getpwd
+	shmempwd
+	getserv
+	admin
+};
+class packet
+{
+	flow_in
+	flow_out
+	forward_out
+	relabelto
+	forward_in
+	send
+	recv
+};
+class packet_socket
+inherits socket
+;
+class passwd
+{
+	chfn
+	passwd
+	crontab
+	rootok
+	chsh
+};
+class peer
+{
+	recv
+};
+class process
+{
+	execmem
+	setcurrent
+	sigstop
+	signull
+	dyntransition
+	getcap
+	noatsecure
+	rlimitinh
+	setkeycreate
+	ptrace
+	sigchld
+	setsockcreate
+	setpgid
+	transition
+	signal
+	getattr
+	setexec
+	setfscreate
+	setcap
+	getpgid
+	share
+	siginh
+	sigkill
+	fork
+	getsession
+	setrlimit
+	execstack
+	getsched
+	setsched
+	execheap
+};
+class property_service
+{
+	set
+};
+class rawip_socket
+inherits socket
+{
+	node_bind
+};
+class security
+{
+	setbool
+	setcheckreqprot
+	setsecparam
+	load_policy
+	setenforce
+	read_policy
+	compute_relabel
+	compute_av
+	compute_user
+	check_context
+	compute_member
+	compute_create
+};
+class sem
+inherits ipc
+;
+class service_manager
+{
+	find
+	add
+	list
+};
+class shm
+inherits ipc
+{
+	lock
+};
+class sock_file
+inherits file
+{
+	open
+	audit_access
+	execmod
+};
+class socket
+inherits socket
+;
+class system
+{
+	syslog_console
+	module_request
+	syslog_mod
+	syslog_read
+	ipc_info
+};
+class tcp_socket
+inherits socket
+{
+	name_connect
+	newconn
+	connectto
+	acceptfrom
+	node_bind
+};
+class tun_socket
+inherits socket
+{
+	attach_queue
+};
+class udp_socket
+inherits socket
+{
+	node_bind
+};
+class unix_dgram_socket
+inherits socket
+;
+class unix_stream_socket
+inherits socket
+{
+	newconn
+	acceptfrom
+	connectto
+};
+class x_application_data
+{
+	paste
+	paste_after_confirm
+	copy
+};
+class x_client
+{
+	getattr
+	manage
+	setattr
+	destroy
+};
+class x_colormap
+{
+	install
+	uninstall
+	add_color
+	use
+	remove_color
+	read
+	getattr
+	write
+	destroy
+	create
+};
+class x_cursor
+{
+	read
+	use
+	setattr
+	getattr
+	destroy
+	write
+	create
+};
+class x_device
+inherits x_device
+;
+class x_drawable
+{
+	manage
+	list_property
+	create
+	override
+	read
+	show
+	hide
+	getattr
+	blend
+	list_child
+	add_child
+	destroy
+	set_property
+	setattr
+	receive
+	remove_child
+	write
+	send
+	get_property
+};
+class x_event
+{
+	receive
+	send
+};
+class x_extension
+{
+	query
+	use
+};
+class x_font
+{
+	use
+	create
+	add_glyph
+	destroy
+	remove_glyph
+	getattr
+};
+class x_gc
+{
+	use
+	create
+	setattr
+	getattr
+	destroy
+};
+class x_keyboard
+inherits x_device
+;
+class x_pointer
+inherits x_device
+;
+class x_property
+{
+	getattr
+	read
+	create
+	destroy
+	setattr
+	write
+	append
+};
+class x_resource
+{
+	read
+	write
+};
+class x_screen
+{
+	setattr
+	saver_hide
+	show_cursor
+	hide_cursor
+	getattr
+	saver_getattr
+	saver_setattr
+	saver_show
+};
+class x_selection
+{
+	read
+	getattr
+	setattr
+	write
+};
+class x_server
+{
+	grab
+	getattr
+	manage
+	setattr
+	record
+	debug
+};
+class x_synthetic_event
+{
+	send
+	receive
+};
+class zygote
+{
+	specifyrlimits
+	specifyinvokewith
+	specifyseinfo
+	specifyids
+};
