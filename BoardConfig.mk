@@ -20,27 +20,70 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 selinux=0
+#
+# Parameters for mkbootimg:
+#
 
-BOARD_KERNEL_BASE := 0x00000000
+# mkbootimg --kernel split_img/recovery-zImage 
+#           --ramdisk ramdisk-new.cpio.gz
+#           --cmdline 'console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5'
+#           --board ''
+#           --base ffff8000
+#           --pagesize 4096
+#           --kernel_offset 00008000
+#           --ramdisk_offset 01008000
+#           --second_offset 00f08000
+#           --tags_offset 00008100
+#           --os_version ''
+#           --os_patch_level ''
+#           --header_version ''
+#           --hash sha1
+#           --dt split_img/recovery-dtb
+#           -o image-new.img
+#
+# mkbootimg --kernel /home/android_build/android/omnirom_src/out/target/product/max1/kernel
+#           --ramdisk /home/android_build/android/omnirom_src/out/target/product/max1/ramdisk-recovery.img
+#           --cmdline \"console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 selinux=0 buildvariant=eng\"
+#           --base 0x00000000
+#           --pagesize 4096
+#           --dt /home/android_build/android/omnirom_src/out/target/product/max1/dt.img
+#           --os_version 7.1.2
+#           --os_patch_level 2017-11-06
+#           --output /home/android_build/android/omnirom_src/out/target/product/max1/recovery.img
+#           --id
+
+# Parameter --cmdline
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 selinux=0
+# Parameter --base
+BOARD_KERNEL_BASE := 0x00008000
+# Parameter --pagesize
 BOARD_KERNEL_PAGESIZE := 4096
-#BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0000000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/letv/max1/dt.img
+# This is not parameter --ramdisk_offset. See build/core/Makefile
+# and look for BOARD_RAMDISK_OFFSET
+BOARD_RAMDISK_OFFSET := 0x01008000
+
+# The following parameters must be passed directly to mkbootimg
+# Parameter --kernel_offset
+# Parameter --ramdisk_offset
+# Parameter --second_offset
+# Parameter --tags_offset
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0008000 --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset 0x00f08000 --tags_offset 0x00008100
 
 # prebuilt kernel
 #TARGET_PREBUILT_KERNEL := device/letv/max1/kernel
 # else uncomment below to build from sauce
 TARGET_KERNEL_SOURCE := kernel/letv/msm8994
 TARGET_KERNEL_CONFIG := max1-perf_defconfig
-# build compressed with dtb attached
-#BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 # build uncompressed with dtb attached
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_USES_UNCOMPRESSED_KERNEL := true
-# build uncompressed without dtb attached
-#BOARD_KERNEL_IMAGE_NAME := Image
+BOARD_KERNEL_SEPARATED_DT := true
+TARGET_CUSTOM_DTBTOOL := dtbToolV3
 
-# FIXME: AlexSmith - see if TARGET_INIT_VENDOR_LIB is needed.
+# FIXME: AlexSmith - Configure vendor init. Not sure this is needed.
 #TARGET_INIT_VENDOR_LIB := libinit_msm
+#TARGET_LIBINIT_DEFINES_FILE := device/letv/max1/init/init_max1.cpp
+
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -56,16 +99,17 @@ TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-# FIXME: AlexSmith - once kernel, init and sepolicy are compiled,
-# remove them from PRODUCT_COPY_FILES.
-PRODUCT_COPY_FILES += \
-	device/letv/max1/extras/init:init \
-	device/letv/max1/extras/sepolicy:sepolicy \
-	device/letv/max1/extras/file_contexts:file_contexts \
-	device/letv/max1/extras/property_contexts:property_contexts \
-	device/letv/max1/extras/seapp_contexts:seapp_contexts \
-	device/letv/max1/extras/service_contexts:service_contexts \
-	device/letv/max1/extras/meu_arq.txt:meu_arq.txt
+# AlexSmith - see if USB comes up with this. Files using this variable:
+# find \( -name "*.mk" -or -name "Makefile" \) -exec grep -H BOARD_USES_QCOM {} \;
+# ./vendor/qcom/opensource_dataservices/Android.mk:ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+# ./build/core/qcom_target.mk:ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+# ./hardware/qcom/keymaster/Android.mk:ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+#
+# It compiles rmnet (https://www.kernel.org/doc/Documentation/networking/rmnet.txt), datatop
+# and sockev.
+# 
+
+BOARD_USES_QCOM_HARDWARE := true
 
 # twrp
 TW_THEME := portrait_hdpi

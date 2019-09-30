@@ -30,9 +30,6 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
-#PRODUCT_COPY_FILES += \
-#    device/letv/max1/kernel:kernel
-
 PRODUCT_NAME := omni_max1
 PRODUCT_DEVICE := max1
 PRODUCT_BRAND := Letv
